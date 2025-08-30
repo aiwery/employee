@@ -6,7 +6,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export const Button: React.FC<Props> = ({
   variant = 'primary',
-  className,
+  className = '',
   disabled,
   ...props
 }) => {
@@ -23,11 +23,13 @@ export const Button: React.FC<Props> = ({
       : 'bg-blue-600 border-blue-600 text-white hover:bg-blue-500 hover:border-blue-500 shadow-sm';
   };
 
-  return (
-    <button
-      className={`${base} ${getStyles()} ${className}`}
-      disabled={disabled}
-      {...props}
-    />
-  );
+  // 如果className包含自定义样式，优先使用className
+  const finalClassName =
+    className.includes('bg-') ||
+    className.includes('text-') ||
+    className.includes('border-')
+      ? `${base} ${className}` // 让自定义样式覆盖默认样式
+      : `${base} ${getStyles()} ${className}`;
+
+  return <button className={finalClassName} disabled={disabled} {...props} />;
 };
