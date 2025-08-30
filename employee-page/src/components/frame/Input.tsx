@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
+  label?: React.ReactNode | string;
 }
 export const Input: React.FC<InputProps> = ({ className, label, ...props }) => {
   return (
